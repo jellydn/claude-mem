@@ -260,8 +260,11 @@ export async function updateFolderClaudeMdFiles(
   port: number,
   projectRoot?: string
 ): Promise<void> {
-  // Load settings to get configurable observation limit
   const settings = SettingsDefaultsManager.loadFromFile(SETTINGS_PATH);
+  if (settings.CLAUDE_MEM_FOLDER_CLAUDEMD_ENABLED !== 'true') {
+    return;
+  }
+
   const limit = parseInt(settings.CLAUDE_MEM_CONTEXT_OBSERVATIONS, 10) || 50;
 
   // Extract unique folder paths from file paths
