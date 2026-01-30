@@ -187,6 +187,9 @@ export async function reapOrphanedProcesses(activeSessionIds: Set<number>): Prom
  *
  * The SDK's spawnClaudeCodeProcess option allows us to intercept subprocess
  * creation and capture the PID before the SDK hides it.
+ *
+ * NOTE: Session isolation is handled via the `cwd` option in SDKAgent.ts,
+ * NOT via CLAUDE_CONFIG_DIR (which breaks authentication).
  */
 export function createPidCapturingSpawn(sessionDbId: number) {
   return (spawnOptions: {
